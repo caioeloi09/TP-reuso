@@ -21,9 +21,11 @@ public class ReadAndPrint {
     protected static final Map<Integer, Candidate> CandidateMap = new HashMap<>();
     private static final Map<String, CertifiedProfessional> CertifiedMap = new HashMap<>();
     private static final BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
+    
     public static void print(String output) {
         System.out.println(output);
     }
+    
     public static String readString() {
         try {
             return scanner.readLine();
