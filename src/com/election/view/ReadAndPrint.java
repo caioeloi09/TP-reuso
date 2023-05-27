@@ -1,5 +1,6 @@
 package com.election.view;
 
+import com.election.controller.ElectionController;
 import com.election.entity.Candidate;
 import com.election.entity.CertifiedProfessional;
 import com.election.entity.Vote;
@@ -64,7 +65,8 @@ public class ReadAndPrint {
 
     public static void loadProfessionals() {
         try{
-            Path filePath = Paths.get(ReadAndPrint.class.getClassLoader().getResource("TSEEmployees.txt").toURI());
+            Path filePath = Paths.get(ReadAndPrint.class.getClassLoader().getResource("certifiedProfessionals.txt")
+                    .toURI());
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
                 var professionalData = line.split(",");
@@ -128,5 +130,45 @@ public class ReadAndPrint {
             }
         }
         return vote = new Vote("null");
+    }
+
+    public static void certifiedProfessionalMenu(){
+        int command;
+        String user, password;
+        print("\nFazer login (1)\nSair (2)\n\n");
+        command = readInt();
+        boolean state = true;
+        if (command == 1){
+            while (state){
+                print("\nInsira o usuario:\n");
+                password = readString();
+                print("\nInsira a senha:\n");
+                user = readString();
+                CertifiedProfessional professional = CertifiedMap.get(user);
+                if (professional == null || !professional.getPassword().equals(password)){
+                    print("\nUsuario ou senha Incorretos! Digite novamente.:\n");
+                }else {
+                    print("\nIniciar Sessão (1)\nFinalizar Sessão (2)\n");
+                    command = readInt();
+                    if (command == 1 && !ElectionController.currentElection.getStatus()){
+                        ElectionController.currentElection.setStatus(true);
+                        print("\nSessão iniciada com Sucesso!\n");
+                        state = false;
+                    }
+                    else if (command == 1 && ElectionController.currentElection.getStatus()){
+                        print("\nSessão já iniciada!\n");
+                    }
+                    else if (command == 2 && ElectionController.currentElection.getStatus()){
+                        ElectionController.currentElection.setStatus(false);
+                        print("\nSessão finalizada com Sucesso!\n");
+                        state = false;
+                    }
+                    else if (command == 2 && !ElectionController.currentElection.getStatus()){
+                        print("\nSessão já encerrada ou ainda não iniciada!\n");
+                    }
+                }
+            }
+
+        }
     }
 }
