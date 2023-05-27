@@ -4,6 +4,7 @@ import com.election.controller.ElectionController;
 import com.election.controller.PresidentialElectionController;
 import com.election.entity.Candidate;
 import com.election.entity.Voter;
+import com.election.enums.ElectionStatusEnum;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -45,7 +46,7 @@ public class ReadAndPrintPresidential extends ReadAndPrint{
     public static void showVoterMenu(){
         print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
         print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
-        if (!ElectionController.currentElection.getStatus()) {
+        if (!ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.RUNNING.name())) {
             print("A eleição ainda não foi inicializada, verifique com um funcionário do TSE");
             return;
         }
