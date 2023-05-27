@@ -6,6 +6,7 @@ public class Voter {
     public final String name;
 
     public final String state;
+    public  boolean alreadyVoted = false;
 
     public static class Builder {
         private String electoralCard;

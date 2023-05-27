@@ -6,6 +6,7 @@ import com.election.view.ReadAndPrint;
 import com.election.view.ReadAndPrintPresidential;
 
 import static com.election.view.ReadAndPrint.print;
+import static com.election.view.ReadAndPrint.readVote;
 
 public class PresidentialElectionController extends ElectionController{
     public static void startMenu() {
@@ -30,11 +31,15 @@ public class PresidentialElectionController extends ElectionController{
     }
     public static boolean votePresident(Voter voter){
         Vote presidentialVote = ReadAndPrint.readVote();
-        return false;
+        ElectionController.voteList.add(presidentialVote);
+        voter.alreadyVoted = true;
+        return true;
     }
 
     public static boolean voteFederalDeputy(Voter voter, int i) {
-
-        return false;
+        Vote federalVote = readVote();
+        ElectionController.voteList.add(federalVote);
+        voter.alreadyVoted = true;
+        return true;
     }
 }
