@@ -39,7 +39,7 @@ public class CertifiedProfessional {
 
     public CertifiedProfessional(
             String user,
-            String password) {
+            int password) {
         this.user = user;
         this.password = password;
     }

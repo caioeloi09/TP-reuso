@@ -1,0 +1,3 @@
+13,Lula
+22,Bolsonaro
+7070,Luis Tibe

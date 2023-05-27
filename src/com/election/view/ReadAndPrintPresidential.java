@@ -2,9 +2,37 @@ package com.election.view;
 
 import com.election.controller.ElectionController;
 import com.election.controller.PresidentialElectionController;
+import com.election.entity.Candidate;
 import com.election.entity.Voter;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
+import static java.lang.System.exit;
+
 public class ReadAndPrintPresidential extends ReadAndPrint{
+
+    public static void loadCandidates() {
+        try{
+            Path filePath = Paths.get(ReadAndPrint.class.getClassLoader().getResource("presidentialCandidates.txt")
+                    .toURI());
+            List<String> lines = Files.readAllLines(filePath);
+            for (String line : lines) {
+                var candidateData = line.split(",");
+                ReadAndPrint.CandidateMap.put(Integer.valueOf(candidateData[0]),
+                        new Candidate.Builder()
+                                .electoralNumber(Integer.parseInt(candidateData[0]))
+                                .name(candidateData[1])
+                                .build());
+            }
+
+        } catch (Exception e){
+            print("Erro na inicialização dos dados");
+            exit(1);
+        }
+    }
 
     public static int showMenu(){
         print("Escolha uma opção:\n");
