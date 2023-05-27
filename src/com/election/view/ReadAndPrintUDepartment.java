@@ -3,6 +3,7 @@ package com.election.view;
 import com.election.controller.ElectionController;
 import com.election.controller.UDepartmentElectionController;
 import com.election.entity.Voter;
+import com.election.enums.ElectionStatusEnum;
 
 public class ReadAndPrintUDepartment extends ReadAndPrint{
 
@@ -17,8 +18,12 @@ public class ReadAndPrintUDepartment extends ReadAndPrint{
     public static void showVoterMenu(){
         print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
         print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
-        if (!ElectionController.currentElection.getStatus()) {
+        if (ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.NOT_INITIALIZED.name())) {
             print("A eleição ainda não foi inicializada, verifique com um funcionário do TSE");
+            return;
+        }
+        if (ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.FINISHED.name())) {
+            print("A eleição já foi encerrada, verifique com um funcionário do TSE");
             return;
         }
         Voter voter = ReadAndPrint.getVoter();

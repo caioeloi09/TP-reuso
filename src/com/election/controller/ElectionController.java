@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.election.view.ReadAndPrint.*;
+import static java.lang.System.exit;
 
 
 public class ElectionController {
@@ -40,7 +41,7 @@ public class ElectionController {
                         createElection(electionPassword, "Universitaria");
                         exit = true;
                     }
-                    case 0 -> exit = true;
+                    case 0 -> exit(1);
                 }
             }
         }catch(Exception e){

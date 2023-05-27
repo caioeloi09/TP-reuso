@@ -5,6 +5,7 @@ import com.election.entity.Candidate;
 import com.election.entity.CertifiedProfessional;
 import com.election.entity.Vote;
 import com.election.entity.Voter;
+import com.election.enums.ElectionStatusEnum;
 
 import java.io.BufferedReader;
 import java.nio.file.Paths;
@@ -148,27 +149,32 @@ public class ReadAndPrint {
                 if (professional == null || !professional.getPassword().equals(password)){
                     print("\nUsuario ou senha Incorretos! Digite novamente.:\n");
                 }else {
-                    print("\nIniciar Sessão (1)\nFinalizar Sessão (2)\n");
-                    command = readInt();
-                    if (command == 1 && !ElectionController.currentElection.getStatus()){
-                        ElectionController.currentElection.setStatus(true);
-                        print("\nSessão iniciada com Sucesso!\n");
-                        state = false;
+                    if (ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.NOT_INITIALIZED.name())){
+                        print("\nIniciar Sessão (1)\nSair (2)\n");
+                        command = readInt();
+                        if (command == 1 ){
+                            ElectionController.currentElection.setStatus("RUNNING");
+                            print("\nSessão iniciada com Sucesso!\n");
+                            state = false;
+                        }
+                        else if(command == 2){
+                            state = false;
+                        }
                     }
-                    else if (command == 1 && ElectionController.currentElection.getStatus()){
-                        print("\nSessão já iniciada!\n");
-                    }
-                    else if (command == 2 && ElectionController.currentElection.getStatus()){
-                        ElectionController.currentElection.setStatus(false);
-                        print("\nSessão finalizada com Sucesso!\n");
-                        state = false;
-                    }
-                    else if (command == 2 && !ElectionController.currentElection.getStatus()){
-                        print("\nSessão já encerrada ou ainda não iniciada!\n");
+                    else if (ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.RUNNING.name())){
+                        print("\nFinalizar Sessão (1)\nSair (2)\n");
+                        command = readInt();
+                        if (command == 1 ){
+                            ElectionController.currentElection.setStatus("FINISHED");
+                            print("\nSessão finalizada com Sucesso!\n");
+                            state = false;
+                        }
+                        else if(command == 2){
+                            state = false;
+                        }
                     }
                 }
             }
-
         }
     }
 }
