@@ -16,8 +16,7 @@ public class PresidentialElectionController extends ElectionController{
                 int command = ReadAndPrintPresidential.showMenu();
                 switch (command) {
                     case 1 -> voterMenu();
-
-                    //case 2 -> tseMenu();
+                    case 2 -> ReadAndPrint.certifiedProfessionalMenu();
                     case 0 -> menuOn = false;
                     default -> print("Comando inválido\n");
                 }
