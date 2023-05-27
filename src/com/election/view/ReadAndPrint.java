@@ -18,7 +18,7 @@ import static java.lang.System.exit;
 
 public class ReadAndPrint {
     private static final Map<String, Voter> VoterMap = new HashMap<>();
-    private static final Map<Integer, Candidate> CandidateMap = new HashMap<>();
+    protected static final Map<Integer, Candidate> CandidateMap = new HashMap<>();
     private static final Map<String, CertifiedProfessional> CertifiedMap = new HashMap<>();
     private static final BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
     public static void print(String output) {
@@ -104,15 +104,29 @@ public class ReadAndPrint {
     }
 
     public static Vote readVote(){
-        print("\nInsira o número do candidato:\n\n");
-        int candidateNumber = readInt();
-        Candidate candidate = CandidateMap.get(candidateNumber);
-        if (candidate == null){
-            print("Candidato não encontrado, por favor confirme se a entrada está correta e tente novamente");
-            readVote();
-        }else {
-
+        print("\nInsira o número do candidato:\nEx.: 13\nOU 0 para nulo OU br para branco\n");
+        String candidateNumber = readString();
+        Vote vote;
+        switch (candidateNumber) {
+            case "br" -> {
+                vote = new Vote(candidateNumber);
+                return vote;
+            }
+            case "0" -> {
+                vote = new Vote("null");
+                return vote;
+            }
+            default -> {
+                Candidate candidate = CandidateMap.get(Integer.parseInt(candidateNumber));
+                if (candidate == null) {
+                    print("Candidato não encontrado, por favor confirme se a entrada está correta e tente novamente");
+                    readVote();
+                } else {
+                    vote = new Vote("valid", candidate);
+                    return vote;
+                }
+            }
         }
-
+        return vote = new Vote("null");
     }
 }

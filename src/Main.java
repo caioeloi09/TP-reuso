@@ -1,6 +1,7 @@
 import com.election.controller.ElectionController;
 import com.election.controller.PresidentialElectionController;
 import com.election.view.ReadAndPrint;
+import com.election.view.ReadAndPrintPresidential;
 
 public class Main {
     public static void main(String [] args){
@@ -12,12 +13,13 @@ public class Main {
         ReadAndPrint.loadVoters();
         ReadAndPrint.loadProfessionals();
 
+
         switch (ElectionController.currentElection.getElectionType()){
             case "PRESIDENTIAL":
+                ReadAndPrintPresidential.loadCandidates();
                 PresidentialElectionController.startMenu();
 
             case "MUNICIPAL":
-
 
         }
 
