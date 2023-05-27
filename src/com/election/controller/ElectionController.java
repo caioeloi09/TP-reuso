@@ -2,13 +2,14 @@ package com.election.controller;
 
 import com.election.entity.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.election.view.ReadAndPrint.*;
 
 
 public class ElectionController {
-    static List<Vote> voteList;
+    protected static List<Vote> voteList = new ArrayList<>();
     static boolean exit = false;
     public static Election currentElection;
     public static void initializeElection(String electionPassword){

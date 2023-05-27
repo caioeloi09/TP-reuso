@@ -135,15 +135,15 @@ public class ReadAndPrint {
     public static void certifiedProfessionalMenu(){
         int command;
         String user, password;
-        print("\nFazer login (1)\nSair (2)\n\n");
+        print("\nFazer login (1)\nSair (2)\n");
         command = readInt();
         boolean state = true;
         if (command == 1){
             while (state){
                 print("\nInsira o usuario:\n");
-                password = readString();
-                print("\nInsira a senha:\n");
                 user = readString();
+                print("\nInsira a senha:\n");
+                password = readString();
                 CertifiedProfessional professional = CertifiedMap.get(user);
                 if (professional == null || !professional.getPassword().equals(password)){
                     print("\nUsuario ou senha Incorretos! Digite novamente.:\n");
