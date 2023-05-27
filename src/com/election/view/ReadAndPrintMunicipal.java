@@ -31,9 +31,9 @@ public class ReadAndPrintMunicipal extends ReadAndPrint{
                 "OBS:\n- A partir de agora caso você queira votar nulo você deve usar um numero composto de 0 (00 e 0000)\n- A partir de agora caso você queira votar branco você deve escrever br\n");
         print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
 
-        print("\nInsira seu voto para presidente:\n\n");
+        print("\nInsira seu voto para prefeito:\n\n");
          if (MunipalElectionController.voteMayor(voter))
-           print("Voto para presidente registrado com sucesso");
+           print("Voto para prefeito registrado com sucesso");
          print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
 
     }
