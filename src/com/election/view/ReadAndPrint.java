@@ -6,6 +6,7 @@ import com.election.entity.CertifiedProfessional;
 import com.election.entity.Vote;
 import com.election.entity.Voter;
 
+
 import java.io.BufferedReader;
 import java.nio.file.Paths;
 import java.io.InputStreamReader;
@@ -13,11 +14,13 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 import java.nio.file.Files;
 
 import static java.lang.System.exit;
 
 public class ReadAndPrint {
+
     private static final Map<String, Voter> VoterMap = new HashMap<>();
     protected static final Map<Integer, Candidate> CandidateMap = new HashMap<>();
     private static final Map<String, CertifiedProfessional> CertifiedMap = new HashMap<>();
@@ -173,4 +176,6 @@ public class ReadAndPrint {
 
         }
     }
+
+
 }

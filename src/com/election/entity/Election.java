@@ -22,4 +22,7 @@ public class Election {
     public void setStatus(boolean status){
         this.status = status;
     }
+    public int getValidVotes(){ return this.totalValidVotes; } 
+    public int getNullVotes(){ return this.totalNullVotes; }
+    public int getWhiteVotes(){ return this.totalWhiteVotes; }
 }

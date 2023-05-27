@@ -1,12 +1,14 @@
 package com.election.entity;
 
 public class Candidate {
-    int electoralNumber;
-    String name;
+    private int electoralNumber;
+    private int voteCount;  
+    private String name; 
 
     public Candidate(String name, int electoralNumber) {
         this.name = name;
         this.electoralNumber = electoralNumber;
+        this.voteCount = 0; 
     }
 
     public static class Builder {
@@ -34,5 +36,24 @@ public class Candidate {
                     this.name,
                     this.electoralNumber);
         }
+    }
+
+    public void addVote(){
+        this.voteCount += 1;
+    }
+    
+    public int getVoteCount(){
+        return this.voteCount; 
+    }
+
+    @Override
+    public String toString(){
+        return ("Candidato: " + name + " \nVotos: " + this.voteCount); 
+    }
+
+    @Override 
+    public boolean equals(Object obj){
+        Candidate candidate = (Candidate) obj; 
+        return this.name.equalsIgnoreCase(candidate.name); 
     }
 }
