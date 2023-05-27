@@ -103,7 +103,7 @@ public class ReadAndPrint {
         return null;
     }
 
-    public Vote readVote(){
+    public static Vote readVote(){
         print("\nInsira o número do candidato:\n\n");
         int candidateNumber = readInt();
         Candidate candidate = CandidateMap.get(candidateNumber);
