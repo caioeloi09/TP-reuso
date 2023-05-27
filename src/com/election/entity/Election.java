@@ -19,5 +19,11 @@ public class Election {
     public String getElectionType() {
         return this.electionType.name();
     }
+<<<<<<< HEAD
     
+=======
+    public void setStatus(boolean status){
+        this.status = status;
+    }
+>>>>>>> main
 }

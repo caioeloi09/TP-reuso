@@ -9,6 +9,7 @@ import static com.election.view.ReadAndPrint.print;
 import static com.election.view.ReadAndPrint.readVote;
 
 public class PresidentialElectionController extends ElectionController{
+
     public static void startMenu() {
         try{
             boolean menuOn = true;
@@ -16,8 +17,7 @@ public class PresidentialElectionController extends ElectionController{
                 int command = ReadAndPrintPresidential.showMenu();
                 switch (command) {
                     case 1 -> voterMenu();
-
-                    //case 2 -> tseMenu();
+                    case 2 -> ReadAndPrint.certifiedProfessionalMenu();
                     case 0 -> menuOn = false;
                     default -> print("Comando inválido\n");
                 }
@@ -26,9 +26,11 @@ public class PresidentialElectionController extends ElectionController{
             print("Erro inesperado\n");
         }
     }
+
     private static void voterMenu() {
         ReadAndPrintPresidential.showVoterMenu();
     }
+    
     public static boolean votePresident(Voter voter){
         Vote presidentialVote = ReadAndPrint.readVote();
         ElectionController.voteList.add(presidentialVote);

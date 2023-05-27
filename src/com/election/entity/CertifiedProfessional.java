@@ -2,7 +2,7 @@ package com.election.entity;
 public class CertifiedProfessional {
 
     private final String user;
-    private String password;
+    private final String password;
 
     public static class Builder {
         private String user;
@@ -37,9 +37,11 @@ public class CertifiedProfessional {
         }
     }
 
+    public String getPassword(){ return this.password;}
+
     public CertifiedProfessional(
             String user,
-            int password) {
+            String password) {
         this.user = user;
         this.password = password;
     }
