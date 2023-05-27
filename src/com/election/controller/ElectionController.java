@@ -8,7 +8,7 @@ import static com.election.view.ReadAndPrint.*;
 
 
 public class ElectionController {
-    List<Vote> voteList;
+    static List<Vote> voteList;
     static boolean exit = false;
     public static Election currentElection;
     public static void initializeElection(String electionPassword){

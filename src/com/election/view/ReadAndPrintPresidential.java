@@ -24,6 +24,11 @@ public class ReadAndPrintPresidential extends ReadAndPrint{
         Voter voter = ReadAndPrint.getVoter();
         if (voter == null)
             return;
+        if (voter.alreadyVoted){
+            print("Eleitor já realizou voto!\n");
+            print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
+            return;
+        }
         print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
 
         print("Vamos começar!\n");
