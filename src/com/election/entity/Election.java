@@ -16,7 +16,8 @@ public class Election {
     public boolean getStatus() {
         return this.status;
     }
-    public String getElectionType(){
+    public String getElectionType() {
         return this.electionType.name();
     }
+    
 }

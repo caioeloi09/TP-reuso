@@ -10,7 +10,7 @@ import static com.election.view.ReadAndPrint.readVote;
 
 public class PresidentialElectionController extends ElectionController{
     public static void startMenu() {
-        try {
+        try{
             boolean menuOn = true;
             while (menuOn) {
                 int command = ReadAndPrintPresidential.showMenu();
