@@ -33,7 +33,9 @@ public class StateElectionController {
 
     public static boolean voteGovernor(Voter voter){
         Vote governorVote = ReadAndPrint.readVote();
-        return false;
+        ElectionController.voteList.add(governorVote); 
+        voter.alreadyVoted = true; 
+        return true;
     }
 
 }

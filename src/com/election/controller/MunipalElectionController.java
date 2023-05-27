@@ -26,13 +26,16 @@ public class MunipalElectionController {
             print("Erro inesperado\n");
         }
     }
+
     private static void voterMenu() {
         ReadAndPrintMunicipal.showVoterMenu();
     }
+    
     public static boolean voteMayor(Voter voter){
         Vote mayorVote = ReadAndPrint.readVote();
-        return false;
+        ElectionController.voteList.add(mayorVote); 
+        voter.alreadyVoted = true; 
+        return true;
     }
-
 
 }
