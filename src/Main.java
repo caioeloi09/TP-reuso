@@ -1,5 +1,6 @@
 import com.election.controller.ElectionController;
 import com.election.controller.PresidentialElectionController;
+import com.election.enums.ElectionRoundEnum;
 import com.election.view.ReadAndPrint;
 import com.election.view.ReadAndPrintPresidential;
 
@@ -16,8 +17,16 @@ public class Main {
 
         switch (ElectionController.currentElection.getElectionType()){
             case "PRESIDENTIAL":
-                ReadAndPrintPresidential.loadCandidates();
-                PresidentialElectionController.startMenu();
+                String turn = ReadAndPrintPresidential.preElectionMenu();
+                ElectionController.currentElection.setRound(turn);
+                if (ElectionController.currentElection.getRound().equals(ElectionRoundEnum.FIRST_ROUND.name())){
+                    ReadAndPrintPresidential.loadCandidates();
+                    PresidentialElectionController.startMenu();
+                }else{
+                    ReadAndPrintPresidential.loadCandidatesSecondRound();
+                    PresidentialElectionController.startMenu();
+                }
+
 
             case "MUNICIPAL":
 

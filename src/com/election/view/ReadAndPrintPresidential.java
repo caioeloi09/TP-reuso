@@ -4,6 +4,7 @@ import com.election.controller.ElectionController;
 import com.election.controller.PresidentialElectionController;
 import com.election.entity.Candidate;
 import com.election.entity.Voter;
+import com.election.enums.ElectionRoundEnum;
 import com.election.enums.ElectionStatusEnum;
 
 import java.nio.file.Files;
@@ -15,6 +16,19 @@ import java.util.Objects;
 import static java.lang.System.exit;
 
 public class ReadAndPrintPresidential extends ReadAndPrint{
+
+    public static String preElectionMenu(){
+        print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
+        print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
+        print("Escolha uma opção de turno:\n");
+        print("(1) Primeiro Turno");
+        print("(2) Segundo turno");
+        int turno = readInt();
+        if (turno == 1) return "FIRST_ROUND";
+        else if (turno == 2) return "SECOND_ROUND";
+        print("Opção invalida\n");
+        return preElectionMenu();
+    }
 
     public static void loadCandidates() {
         try{
@@ -71,14 +85,49 @@ public class ReadAndPrintPresidential extends ReadAndPrint{
            print("Voto para presidente registrado com sucesso");
          print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
 
-        print("\nInsira seu voto para deputado federal (opção 1):\n\n");
-         if (PresidentialElectionController.voteFederalDeputy(voter, 1))
-           print("Primeiro voto para deputado federal registrado com sucesso");
-         print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
+         if (ElectionController.currentElection.getRound().equals(ElectionRoundEnum.FIRST_ROUND.name())){
+             print("\nInsira seu voto para deputado federal (opção 1):\n\n");
+             if (PresidentialElectionController.voteFederalDeputy(voter, 1))
+                 print("Primeiro voto para deputado federal registrado com sucesso");
+             print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
 
-        print("\nInsira seu voto para deputado federal (opção 2):\n\n");
-         if (PresidentialElectionController.voteFederalDeputy(voter, 2))
-           print("Segundo voto para deputado federal registrado com sucesso");
-         print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
+             print("\nInsira seu voto para deputado federal (opção 2):\n\n");
+             if (PresidentialElectionController.voteFederalDeputy(voter, 2))
+                 print("Segundo voto para deputado federal registrado com sucesso");
+             print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
+         }
+    }
+
+    public static void loadCandidatesSecondRound() {
+        try{
+            int codigo1, codigo2;
+            print("Vamos começar!\n");
+            print("\nInsira o codigo do primeiro candidato:\n\n");
+            codigo1 = readInt();
+            print("\nInsira o codigo do segundo candidato:\n\n");
+            codigo2 = readInt();
+
+            Path filePath = Paths.get(Objects.requireNonNull(ReadAndPrint.class.getClassLoader()
+                    .getResource("presidentialCandidates.txt")).toURI());
+            List<String> lines = Files.readAllLines(filePath);
+            for (String line : lines) {
+                var candidateData = line.split(",");
+                if (Integer.parseInt(candidateData[0]) == codigo1 || Integer.parseInt(candidateData[0]) == codigo2){
+                    ReadAndPrint.CandidateMap.put(Integer.valueOf(candidateData[0]),
+                            new Candidate.Builder()
+                                    .electoralNumber(Integer.parseInt(candidateData[0]))
+                                    .name(candidateData[1])
+                                    .build());
+                }
+            }
+            if (CandidateMap.size() != 2){
+                print("Candidatos Inválidos! Digite novamente");
+                loadCandidatesSecondRound();
+            }
+
+        } catch (Exception e){
+            print("Erro na inicialização dos dados");
+            exit(1);
+        }
     }
 }
