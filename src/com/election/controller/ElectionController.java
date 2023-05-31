@@ -2,6 +2,7 @@ package com.election.controller;
 
 import com.election.entity.*;
 
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import static java.lang.System.exit;
 
 public class ElectionController {
     protected static List<Vote> voteList = new ArrayList<>();
+    public static List<Candidate> candidateRanking; 
     static boolean exit = false;
     public static Election currentElection;
     public static void initializeElection(String electionPassword){
@@ -65,4 +67,28 @@ public class ElectionController {
         }
     }
 
+    public static void finishElection(){
+        
+    }
+
+    public static void computeRanking(){
+        for(Vote vote : voteList){
+            boolean found = false;
+            for(Candidate candidate : candidateRanking){
+                if(candidate.equals(vote.getCandidate())){
+                    candidate.addVote(); 
+                    found = true;
+                    break; 
+                }
+            }
+            if(!found){
+                candidateRanking.add(vote.getCandidate()); 
+            }
+        }
+        Collections.sort(candidateRanking, (c1, c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount())); 
+    }
+
+    public static int getValidVotes(){return currentElection.getValidVotes();}
+    public static int getNullVotes(){return currentElection.getNullVotes();}
+    public static int getWhiteVotes(){return currentElection.getWhiteVotes();}
 }

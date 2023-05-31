@@ -2,7 +2,13 @@ package com.election.view;
 
 import com.election.controller.ElectionController;
 import com.election.controller.MunipalElectionController;
+import com.election.entity.Candidate;
+import com.election.entity.Vote;
 import com.election.entity.Voter;
+import com.election.view.ReadAndPrint;
+import java.util.List;
+
+import static com.election.view.ReadAndPrint.print; 
 import com.election.enums.ElectionStatusEnum;
 
 public class ReadAndPrintMunicipal extends ReadAndPrint{
@@ -42,4 +48,17 @@ public class ReadAndPrintMunicipal extends ReadAndPrint{
          print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
 
     }
+
+    public static void showResults(){
+        print("Resultado da Eleicao:");
+        print("Votos validos: " + ElectionController.getValidVotes());
+        print("Votos nulos: " + ElectionController.getNullVotes());
+        print("Votos brancos: " +  ElectionController.getWhiteVotes()); 
+        print("\n"); 
+
+        List<Candidate> candidateRanking = ElectionController.candidateRanking; 
+
+        candidateRanking.stream().forEach(candidate -> print(candidate.toString()));
+    }
+
 }

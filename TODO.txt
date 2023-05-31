@@ -1,0 +1,2 @@
+- criar finalizar election
+- criar segundo turno

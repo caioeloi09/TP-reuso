@@ -23,9 +23,15 @@ public class Election {
     public void setStatus(String status){
         this.electionStatus = ElectionStatusEnum.valueOf(status);
     }
+
+    public int getValidVotes(){ return this.totalValidVotes; } 
+    public int getNullVotes(){ return this.totalNullVotes; }
+    public int getWhiteVotes(){ return this.totalWhiteVotes; }
+  
     public void setRound(String round){
         this.electionRound = ElectionRoundEnum.valueOf(round);
     }
 
     public String getRound() { return this.electionRound.name(); }
+
 }

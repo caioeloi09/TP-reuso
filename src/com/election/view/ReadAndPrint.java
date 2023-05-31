@@ -7,6 +7,7 @@ import com.election.entity.Vote;
 import com.election.entity.Voter;
 import com.election.enums.ElectionStatusEnum;
 
+
 import java.io.BufferedReader;
 import java.nio.file.Paths;
 import java.io.InputStreamReader;
@@ -14,19 +15,23 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 import java.nio.file.Files;
 import java.util.Objects;
 
 import static java.lang.System.exit;
 
 public class ReadAndPrint {
+
     private static final Map<String, Voter> VoterMap = new HashMap<>();
     protected static final Map<Integer, Candidate> CandidateMap = new HashMap<>();
     private static final Map<String, CertifiedProfessional> CertifiedMap = new HashMap<>();
     private static final BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
+    
     public static void print(String output) {
         System.out.println(output);
     }
+    
     public static String readString() {
         try {
             return scanner.readLine();
@@ -190,4 +195,6 @@ public class ReadAndPrint {
             }
         }
     }
+
+
 }
