@@ -66,6 +66,10 @@ public class ElectionController {
         }
     }
 
+    public static void finishElection(){
+        
+    }
+
     public static void computeRanking(){
         for(Vote vote : voteList){
             boolean found = false;
