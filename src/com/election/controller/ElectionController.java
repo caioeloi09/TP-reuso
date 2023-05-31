@@ -3,14 +3,15 @@ package com.election.controller;
 import com.election.entity.*;
 
 import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.election.view.ReadAndPrint.*;
+import static java.lang.System.exit;
 
 
 public class ElectionController {
-    public static List<Vote> voteList;
-    // TODO : computar candidateRanking
+    protected static List<Vote> voteList = new ArrayList<>();
     public static List<Candidate> candidateRanking; 
     static boolean exit = false;
     public static Election currentElection;
@@ -42,7 +43,7 @@ public class ElectionController {
                         createElection(electionPassword, "Universitaria");
                         exit = true;
                     }
-                    case 0 -> exit = true;
+                    case 0 -> exit(1);
                 }
             }
         }catch(Exception e){

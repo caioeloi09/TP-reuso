@@ -1,5 +1,6 @@
 package com.election.entity;
 
+import com.election.enums.ElectionStatusEnum;
 import com.election.enums.ElectionTypeEnum;
 
 public class Election {
@@ -8,19 +9,19 @@ public class Election {
     protected int totalWhiteVotes = 0;
 
     protected ElectionTypeEnum electionType;
-    protected boolean status;
+    protected ElectionStatusEnum status;
     protected Election(String electionType) {
-        this.status = false;
+        this.status = ElectionStatusEnum.NOT_INITIALIZED;
         this.electionType = ElectionTypeEnum.valueOf(electionType);
     }
-    public boolean getStatus() {
-        return this.status;
+    public String getStatus() {
+        return this.status.name();
     }
     public String getElectionType(){
         return this.electionType.name();
     }
-    public void setStatus(boolean status){
-        this.status = status;
+    public void setStatus(String status){
+        this.status = ElectionStatusEnum.valueOf(status);
     }
     public int getValidVotes(){ return this.totalValidVotes; } 
     public int getNullVotes(){ return this.totalNullVotes; }

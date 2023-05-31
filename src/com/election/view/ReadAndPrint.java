@@ -5,6 +5,7 @@ import com.election.entity.Candidate;
 import com.election.entity.CertifiedProfessional;
 import com.election.entity.Vote;
 import com.election.entity.Voter;
+import com.election.enums.ElectionStatusEnum;
 
 
 import java.io.BufferedReader;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 import java.nio.file.Files;
+import java.util.Objects;
 
 import static java.lang.System.exit;
 
@@ -51,7 +53,8 @@ public class ReadAndPrint {
 
     public static void loadVoters() {
         try {
-            Path filePath = Paths.get(ReadAndPrint.class.getClassLoader().getResource("voterLoad.txt").toURI());
+            Path filePath = Paths.get(Objects.requireNonNull(ReadAndPrint.class.getClassLoader()
+                    .getResource("voterLoad.txt")).toURI());
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
                 var voterData = line.split(",");
@@ -140,40 +143,45 @@ public class ReadAndPrint {
     public static void certifiedProfessionalMenu(){
         int command;
         String user, password;
-        print("\nFazer login (1)\nSair (2)\n\n");
+        print("\nFazer login (1)\nSair (2)\n");
         command = readInt();
         boolean state = true;
         if (command == 1){
             while (state){
                 print("\nInsira o usuario:\n");
-                password = readString();
-                print("\nInsira a senha:\n");
                 user = readString();
+                print("\nInsira a senha:\n");
+                password = readString();
                 CertifiedProfessional professional = CertifiedMap.get(user);
                 if (professional == null || !professional.getPassword().equals(password)){
                     print("\nUsuario ou senha Incorretos! Digite novamente.:\n");
                 }else {
-                    print("\nIniciar Sessão (1)\nFinalizar Sessão (2)\n");
-                    command = readInt();
-                    if (command == 1 && !ElectionController.currentElection.getStatus()){
-                        ElectionController.currentElection.setStatus(true);
-                        print("\nSessão iniciada com Sucesso!\n");
-                        state = false;
+                    if (ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.NOT_INITIALIZED.name())){
+                        print("\nIniciar Sessão (1)\nSair (2)\n");
+                        command = readInt();
+                        if (command == 1 ){
+                            ElectionController.currentElection.setStatus("RUNNING");
+                            print("\nSessão iniciada com Sucesso!\n");
+                            state = false;
+                        }
+                        else if(command == 2){
+                            state = false;
+                        }
                     }
-                    else if (command == 1 && ElectionController.currentElection.getStatus()){
-                        print("\nSessão já iniciada!\n");
-                    }
-                    else if (command == 2 && ElectionController.currentElection.getStatus()){
-                        ElectionController.currentElection.setStatus(false);
-                        print("\nSessão finalizada com Sucesso!\n");
-                        state = false;
-                    }
-                    else if (command == 2 && !ElectionController.currentElection.getStatus()){
-                        print("\nSessão já encerrada ou ainda não iniciada!\n");
+                    else if (ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.RUNNING.name())){
+                        print("\nFinalizar Sessão (1)\nSair (2)\n");
+                        command = readInt();
+                        if (command == 1 ){
+                            ElectionController.currentElection.setStatus("FINISHED");
+                            print("\nSessão finalizada com Sucesso!\n");
+                            state = false;
+                        }
+                        else if(command == 2){
+                            state = false;
+                        }
                     }
                 }
             }
-
         }
     }
 

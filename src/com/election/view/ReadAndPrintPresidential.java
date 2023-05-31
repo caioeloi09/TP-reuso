@@ -4,11 +4,13 @@ import com.election.controller.ElectionController;
 import com.election.controller.PresidentialElectionController;
 import com.election.entity.Candidate;
 import com.election.entity.Voter;
+import com.election.enums.ElectionStatusEnum;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 import static java.lang.System.exit;
 
@@ -16,8 +18,8 @@ public class ReadAndPrintPresidential extends ReadAndPrint{
 
     public static void loadCandidates() {
         try{
-            Path filePath = Paths.get(ReadAndPrint.class.getClassLoader().getResource("presidentialCandidates.txt")
-                    .toURI());
+            Path filePath = Paths.get(Objects.requireNonNull(ReadAndPrint.class.getClassLoader()
+                            .getResource("presidentialCandidates.txt")).toURI());
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
                 var candidateData = line.split(",");
@@ -45,7 +47,7 @@ public class ReadAndPrintPresidential extends ReadAndPrint{
     public static void showVoterMenu(){
         print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
         print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
-        if (!ElectionController.currentElection.getStatus()) {
+        if (!ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.RUNNING.name())) {
             print("A eleição ainda não foi inicializada, verifique com um funcionário do TSE");
             return;
         }

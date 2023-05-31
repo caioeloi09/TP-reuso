@@ -9,6 +9,7 @@ import com.election.view.ReadAndPrint;
 import java.util.List;
 
 import static com.election.view.ReadAndPrint.print; 
+import com.election.enums.ElectionStatusEnum;
 
 public class ReadAndPrintMunicipal extends ReadAndPrint{
 
@@ -23,8 +24,12 @@ public class ReadAndPrintMunicipal extends ReadAndPrint{
     public static void showVoterMenu(){
         print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
         print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
-        if (!ElectionController.currentElection.getStatus()) {
+        if (ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.NOT_INITIALIZED.name())) {
             print("A eleição ainda não foi inicializada, verifique com um funcionário do TSE");
+            return;
+        }
+        if (ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.FINISHED.name())) {
+            print("A eleição ja foi encerrada, verifique com um funcionário do TSE");
             return;
         }
         Voter voter = ReadAndPrint.getVoter();
