@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 import static java.lang.System.exit;
 
@@ -17,8 +18,8 @@ public class ReadAndPrintPresidential extends ReadAndPrint{
 
     public static void loadCandidates() {
         try{
-            Path filePath = Paths.get(ReadAndPrint.class.getClassLoader().getResource("presidentialCandidates.txt")
-                    .toURI());
+            Path filePath = Paths.get(Objects.requireNonNull(ReadAndPrint.class.getClassLoader()
+                            .getResource("presidentialCandidates.txt")).toURI());
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
                 var candidateData = line.split(",");

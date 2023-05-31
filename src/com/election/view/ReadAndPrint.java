@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.nio.file.Files;
+import java.util.Objects;
 
 import static java.lang.System.exit;
 
@@ -47,7 +48,8 @@ public class ReadAndPrint {
 
     public static void loadVoters() {
         try {
-            Path filePath = Paths.get(ReadAndPrint.class.getClassLoader().getResource("voterLoad.txt").toURI());
+            Path filePath = Paths.get(Objects.requireNonNull(ReadAndPrint.class.getClassLoader()
+                    .getResource("voterLoad.txt")).toURI());
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
                 var voterData = line.split(",");
