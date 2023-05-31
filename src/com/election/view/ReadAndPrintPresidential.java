@@ -17,19 +17,6 @@ import static java.lang.System.exit;
 
 public class ReadAndPrintPresidential extends ReadAndPrint{
 
-    public static String preElectionMenu(){
-        print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
-        print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
-        print("Escolha uma opção de turno:\n");
-        print("(1) Primeiro Turno");
-        print("(2) Segundo turno");
-        int turno = readInt();
-        if (turno == 1) return "FIRST_ROUND";
-        else if (turno == 2) return "SECOND_ROUND";
-        print("Opção invalida\n");
-        return preElectionMenu();
-    }
-
     public static void loadCandidates() {
         try{
             Path filePath = Paths.get(Objects.requireNonNull(ReadAndPrint.class.getClassLoader()

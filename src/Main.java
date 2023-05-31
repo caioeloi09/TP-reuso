@@ -13,12 +13,12 @@ public class Main {
         // Startar todos os eleitores e profissionais
         ReadAndPrint.loadVoters();
         ReadAndPrint.loadProfessionals();
+        ReadAndPrint.preElectionMenu();
+
 
 
         switch (ElectionController.currentElection.getElectionType()){
             case "PRESIDENTIAL":
-                String turn = ReadAndPrintPresidential.preElectionMenu();
-                ElectionController.currentElection.setRound(turn);
                 if (ElectionController.currentElection.getRound().equals(ElectionRoundEnum.FIRST_ROUND.name())){
                     ReadAndPrintPresidential.loadCandidates();
                     PresidentialElectionController.startMenu();
