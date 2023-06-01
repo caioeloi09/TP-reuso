@@ -5,6 +5,7 @@ import com.election.helper.MajorityVoteHelper;
 import com.election.helper.VoteInterfaceHelper;
 import com.election.helper.WeightedVoteHelper;
 import com.election.view.ReadAndPrint;
+import com.election.view.ReadAndPrintPresidential;
 
 import java.util.Collections;
 import java.util.ArrayList;
@@ -84,10 +85,17 @@ public class ElectionController {
         }
     }
 
-    public static void computeRanking(){
+    public static void finishElection(){
         setCountingStrategy(currentElection.getElectionType());
         countingStrategy.countVotes(voteList);
+        computeRanking();
 
+    }
+
+    public static void computeRanking(){
+        switch(currentElection.getElectionType()){
+            case "PRESIDENTIAL" -> {PresidentialElectionController.computeVotes();}
+        }
     }
 
     public static int getValidVotes(){return currentElection.getValidVotes();}

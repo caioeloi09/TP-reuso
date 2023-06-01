@@ -76,7 +76,7 @@ public class ReadAndPrint {
                                 .build());
             }
         } catch (Exception e) {
-            print("Erro na inicialização dos dados");
+            print("Erro na inicialização dos dados de eleitores");
             exit(1);
         }
     }
@@ -183,11 +183,21 @@ public class ReadAndPrint {
                         command = readInt();
                         if (command == 1 ){
                             ElectionController.currentElection.setStatus("FINISHED");
+                            ElectionController.finishElection();
                             print("\nSessão finalizada com Sucesso!\n");
                             state = false;
                         }
                         else if(command == 2){
                             state = false;
+                        }
+                    }else if(ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.FINISHED.name())){
+                        print("\nVer Resultados (1)\nSair (2)\n"); 
+                        command = readInt(); 
+                        if(command == 1){
+                            
+                        }
+                        else if(command == 2){
+                            state = false; 
                         }
                     }
                 }

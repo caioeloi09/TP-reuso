@@ -54,7 +54,7 @@ public class PresidentialElectionController extends ElectionController{
         return true;
     }
 
-    private void computeVotes(){
+    public static void computeVotes(){
             candidateRankingPresidential = ElectionController.candidatesList.stream()
                     .filter(candidate -> candidate.getRole().equals(RoleEnum.PRESIDENT.name()))
                     .toList();

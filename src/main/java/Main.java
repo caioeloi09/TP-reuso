@@ -31,10 +31,6 @@ public class Main {
 
         }
 
-        if (ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.FINISHED.name())){
-            ElectionController.computeRanking();
-        }
-
 
     }
 
