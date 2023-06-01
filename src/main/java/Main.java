@@ -16,7 +16,6 @@ public class Main {
         ReadAndPrint.preElectionMenu();
 
 
-
         switch (ElectionController.currentElection.getElectionType()){
             case "PRESIDENTIAL":
                 if (ElectionController.currentElection.getRound().equals(ElectionRoundEnum.FIRST_ROUND.name())){
@@ -26,7 +25,6 @@ public class Main {
                     ReadAndPrintPresidential.loadCandidatesSecondRound();
                     PresidentialElectionController.startMenu();
                 }
-
 
             case "MUNICIPAL":
 

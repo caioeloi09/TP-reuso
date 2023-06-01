@@ -15,7 +15,6 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 import java.nio.file.Files;
 import java.util.Objects;
 
@@ -24,7 +23,7 @@ import static java.lang.System.exit;
 public class ReadAndPrint {
 
     private static final Map<String, Voter> VoterMap = new HashMap<>();
-    protected static final Map<Integer, Candidate> CandidateMap = new HashMap<>();
+    public static final Map<Integer, Candidate> CandidateMap = new HashMap<>();
     private static final Map<String, CertifiedProfessional> CertifiedMap = new HashMap<>();
     private static final BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
     
@@ -56,10 +55,12 @@ public class ReadAndPrint {
         print("Escolha uma opção de turno:\n");
         print("(1) Primeiro Turno");
         print("(2) Segundo turno");
-        int turno = readInt();
-        if (turno == 1) ElectionController.currentElection.setRound("FIRST_ROUND");
-        else if (turno == 2) ElectionController.currentElection.setRound("SECOND_ROUND");
-        print("Opção invalida\n");
+        int round = readInt();
+        if (round == 1) ElectionController.currentElection.setRound("FIRST_ROUND");
+        else if (round == 2) ElectionController.currentElection.setRound("SECOND_ROUND");
+        else{
+            print("Opção invalida\n");
+        }
     }
 
     public static void loadVoters() {
@@ -77,7 +78,7 @@ public class ReadAndPrint {
                                 .build());
             }
         } catch (Exception e) {
-            print("Erro na inicialização dos dados");
+            print("Erro na inicialização dos dados de eleitores");
             exit(1);
         }
     }
@@ -184,11 +185,22 @@ public class ReadAndPrint {
                         command = readInt();
                         if (command == 1 ){
                             ElectionController.currentElection.setStatus("FINISHED");
+                            ElectionController.finishElection();
                             print("\nSessão finalizada com Sucesso!\n");
                             state = false;
                         }
                         else if(command == 2){
                             state = false;
+                        }
+                    }else if(ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.FINISHED.name())){
+                        print("\nVer Resultados (1)\nSair (2)\n"); 
+                        command = readInt(); 
+                        if(command == 1){
+                            // Criar estrutura de ver resultados no Read And Print e adjacentes
+                            state = false;
+                        }
+                        else if(command == 2){
+                            state = false; 
                         }
                     }
                 }
