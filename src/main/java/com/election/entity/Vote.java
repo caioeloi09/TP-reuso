@@ -1,11 +1,12 @@
 package com.election.entity;
 
 public class Vote {
-    private String type;
-    private String candidatePosition; 
+    private final String type;
     private Candidate candidate;
 
-    public Vote(String type){ this.type = type;}
+    public Vote(String type){
+        this.type = type;
+    }
     public Vote(String type, Candidate candidate){
         this.type = type;
         this.candidate = candidate;
@@ -14,8 +15,5 @@ public class Vote {
     public Candidate getCandidate(){
         return this.candidate; 
     }
-
-    public String getCandidatePosition(){
-        return this.candidatePosition; 
-    }
+    public String getType() { return this.type; }
 }

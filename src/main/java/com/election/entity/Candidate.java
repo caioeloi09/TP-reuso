@@ -1,19 +1,24 @@
 package com.election.entity;
 
-public class Candidate {
-    private int electoralNumber;
-    private int voteCount;  
-    private String name; 
+import com.election.enums.RoleEnum;
 
-    public Candidate(String name, int electoralNumber) {
+public class Candidate {
+    private final int electoralNumber;
+    private int voteCount;  
+    private final String name;
+    private RoleEnum role;
+
+    public Candidate(String name, int electoralNumber, String role) {
         this.name = name;
         this.electoralNumber = electoralNumber;
-        this.voteCount = 0; 
+        this.voteCount = 0;
+        this.role = RoleEnum.valueOf(role);
     }
 
     public static class Builder {
         private int electoralNumber;
         private String name;
+        private String role;
 
         public Candidate.Builder electoralNumber(int electoralNumber) {
             this.electoralNumber = electoralNumber;
@@ -22,6 +27,10 @@ public class Candidate {
 
         public Candidate.Builder name(String name) {
             this.name = name;
+            return this;
+        }
+        public Candidate.Builder role(String role) {
+            this.role = role;
             return this;
         }
 
@@ -34,26 +43,23 @@ public class Candidate {
 
             return new Candidate(
                     this.name,
-                    this.electoralNumber);
+                    this.electoralNumber,
+                    this.role);
         }
-    }
-
-    public void addVote(){
-        this.voteCount += 1;
     }
     
     public int getVoteCount(){
         return this.voteCount; 
     }
 
+    public String getRole() {return this.role.name();}
+
+    public void setVoteCount(Integer voteCount){
+        this.voteCount = voteCount;
+    }
     @Override
     public String toString(){
         return ("Candidato: " + name + " \nVotos: " + this.voteCount); 
     }
 
-    @Override 
-    public boolean equals(Object obj){
-        Candidate candidate = (Candidate) obj; 
-        return this.name.equalsIgnoreCase(candidate.name); 
-    }
 }

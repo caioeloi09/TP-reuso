@@ -1,6 +1,7 @@
 import com.election.controller.ElectionController;
 import com.election.controller.PresidentialElectionController;
 import com.election.enums.ElectionRoundEnum;
+import com.election.enums.ElectionStatusEnum;
 import com.election.view.ReadAndPrint;
 import com.election.view.ReadAndPrintPresidential;
 
@@ -16,7 +17,6 @@ public class Main {
         ReadAndPrint.preElectionMenu();
 
 
-
         switch (ElectionController.currentElection.getElectionType()){
             case "PRESIDENTIAL":
                 if (ElectionController.currentElection.getRound().equals(ElectionRoundEnum.FIRST_ROUND.name())){
@@ -27,9 +27,12 @@ public class Main {
                     PresidentialElectionController.startMenu();
                 }
 
-
             case "MUNICIPAL":
 
+        }
+
+        if (ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.FINISHED.name())){
+            ElectionController.computeRanking();
         }
 
 

@@ -15,7 +15,6 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 import java.nio.file.Files;
 import java.util.Objects;
 
@@ -24,7 +23,7 @@ import static java.lang.System.exit;
 public class ReadAndPrint {
 
     private static final Map<String, Voter> VoterMap = new HashMap<>();
-    protected static final Map<Integer, Candidate> CandidateMap = new HashMap<>();
+    public static final Map<Integer, Candidate> CandidateMap = new HashMap<>();
     private static final Map<String, CertifiedProfessional> CertifiedMap = new HashMap<>();
     private static final BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
     

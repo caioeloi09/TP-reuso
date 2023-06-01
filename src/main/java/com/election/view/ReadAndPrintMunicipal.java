@@ -56,9 +56,7 @@ public class ReadAndPrintMunicipal extends ReadAndPrint{
         print("Votos brancos: " +  ElectionController.getWhiteVotes()); 
         print("\n"); 
 
-        List<Candidate> candidateRanking = ElectionController.candidateRanking; 
 
-        candidateRanking.stream().forEach(candidate -> print(candidate.toString()));
     }
 
 }

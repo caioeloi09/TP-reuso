@@ -6,6 +6,7 @@ import com.election.entity.Candidate;
 import com.election.entity.Voter;
 import com.election.enums.ElectionRoundEnum;
 import com.election.enums.ElectionStatusEnum;
+import com.election.enums.RoleEnum;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,6 +29,20 @@ public class ReadAndPrintPresidential extends ReadAndPrint{
                         new Candidate.Builder()
                                 .electoralNumber(Integer.parseInt(candidateData[0]))
                                 .name(candidateData[1])
+                                .role(RoleEnum.PRESIDENT.name())
+                                .build());
+            }
+
+            filePath = Paths.get(Objects.requireNonNull(ReadAndPrint.class.getClassLoader()
+                    .getResource("federalCandidates.txt")).toURI());
+            lines = Files.readAllLines(filePath);
+            for (String line : lines) {
+                var candidateData = line.split(",");
+                ReadAndPrint.CandidateMap.put(Integer.valueOf(candidateData[0]),
+                        new Candidate.Builder()
+                                .electoralNumber(Integer.parseInt(candidateData[0]))
+                                .name(candidateData[1])
+                                .role(RoleEnum.FEDERAL_DEPUTY.name())
                                 .build());
             }
 

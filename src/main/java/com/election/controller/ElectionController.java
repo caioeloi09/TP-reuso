@@ -1,19 +1,25 @@
 package com.election.controller;
 
 import com.election.entity.*;
+import com.election.helper.MajorityVoteHelper;
+import com.election.helper.VoteInterfaceHelper;
+import com.election.helper.WeightedVoteHelper;
+import com.election.view.ReadAndPrint;
 
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static com.election.view.ReadAndPrint.*;
 import static java.lang.System.exit;
 
 
 public class ElectionController {
-    protected static List<Vote> voteList = new ArrayList<>();
-    public static List<Candidate> candidateRanking; 
+    public static List<Candidate> candidatesList = new ArrayList<>();
+    public static List<Vote> voteList = new ArrayList<>();
     static boolean exit = false;
+    private static VoteInterfaceHelper countingStrategy;
     public static Election currentElection;
     public static void initializeElection(String electionPassword){
         try{
@@ -67,25 +73,21 @@ public class ElectionController {
         }
     }
 
-    public static void finishElection(){
-        
+    private static void setCountingStrategy(String electionType){
+        switch (electionType) {
+            case "PRESIDENTIAL", "STATE", "MUNICIPAL" -> {
+                countingStrategy = new MajorityVoteHelper();
+            }
+            case "UNIVERSITY" -> {
+                countingStrategy = new WeightedVoteHelper();
+            }
+        }
     }
 
     public static void computeRanking(){
-        for(Vote vote : voteList){
-            boolean found = false;
-            for(Candidate candidate : candidateRanking){
-                if(candidate.equals(vote.getCandidate())){
-                    candidate.addVote(); 
-                    found = true;
-                    break; 
-                }
-            }
-            if(!found){
-                candidateRanking.add(vote.getCandidate()); 
-            }
-        }
-        Collections.sort(candidateRanking, (c1, c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount())); 
+        setCountingStrategy(currentElection.getElectionType());
+        countingStrategy.countVotes(voteList);
+
     }
 
     public static int getValidVotes(){return currentElection.getValidVotes();}
