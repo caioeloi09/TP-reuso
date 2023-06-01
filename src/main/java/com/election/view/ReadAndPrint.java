@@ -55,10 +55,12 @@ public class ReadAndPrint {
         print("Escolha uma opção de turno:\n");
         print("(1) Primeiro Turno");
         print("(2) Segundo turno");
-        int turno = readInt();
-        if (turno == 1) ElectionController.currentElection.setRound("FIRST_ROUND");
-        else if (turno == 2) ElectionController.currentElection.setRound("SECOND_ROUND");
-        print("Opção invalida\n");
+        int round = readInt();
+        if (round == 1) ElectionController.currentElection.setRound("FIRST_ROUND");
+        else if (round == 2) ElectionController.currentElection.setRound("SECOND_ROUND");
+        else{
+            print("Opção invalida\n");
+        }
     }
 
     public static void loadVoters() {
@@ -194,7 +196,8 @@ public class ReadAndPrint {
                         print("\nVer Resultados (1)\nSair (2)\n"); 
                         command = readInt(); 
                         if(command == 1){
-                            
+                            // Criar estrutura de ver resultados no Read And Print e adjacentes
+                            state = false;
                         }
                         else if(command == 2){
                             state = false; 

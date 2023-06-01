@@ -119,6 +119,7 @@ public class ReadAndPrintPresidential extends ReadAndPrint{
                             new Candidate.Builder()
                                     .electoralNumber(Integer.parseInt(candidateData[0]))
                                     .name(candidateData[1])
+                                    .role(RoleEnum.PRESIDENT.name())
                                     .build());
                 }
             }

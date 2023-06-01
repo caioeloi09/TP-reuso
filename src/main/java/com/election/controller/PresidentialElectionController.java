@@ -9,16 +9,15 @@ import com.election.view.ReadAndPrint;
 import com.election.view.ReadAndPrintPresidential;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.election.view.ReadAndPrint.*;
 
 public class PresidentialElectionController extends ElectionController{
+
     private static List<Candidate> candidateRankingPresidential = new ArrayList<>();
     private static List<Candidate> candidateRankingFederal = new ArrayList<>();
+
     public static void startMenu() {
         try {
             boolean menuOn = true;
@@ -55,16 +54,20 @@ public class PresidentialElectionController extends ElectionController{
     }
 
     public static void computeVotes(){
-            candidateRankingPresidential = ElectionController.candidatesList.stream()
-                    .filter(candidate -> candidate.getRole().equals(RoleEnum.PRESIDENT.name()))
-                    .toList();
-            if (currentElection.getRound().equals(ElectionRoundEnum.FIRST_ROUND.name())){
-                candidateRankingFederal = ElectionController.candidatesList.stream()
-                        .filter(candidate -> candidate.getRole().equals(RoleEnum.FEDERAL_DEPUTY.name()))
-                        .toList();
-            }
-            candidateRankingPresidential.sort((c1, c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount()));
-            candidateRankingFederal.sort((c1, c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount()));
+
+        List<Candidate> presidential = new ArrayList<>(ElectionController.candidatesList.stream()
+                .filter(candidate -> candidate.getRole().equals(RoleEnum.PRESIDENT.name()))
+                .toList());
+        if (currentElection.getRound().equals(ElectionRoundEnum.FIRST_ROUND.name())){
+            List<Candidate> federal = new ArrayList<>(ElectionController.candidatesList.stream()
+                    .filter(candidate -> candidate.getRole().equals(RoleEnum.FEDERAL_DEPUTY.name()))
+                    .toList());
+            federal.sort((c1, c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount()));
+            candidateRankingFederal = federal;
+        }
+        presidential.sort((c1, c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount()));
+        candidateRankingPresidential = presidential;
+
 
 
     }

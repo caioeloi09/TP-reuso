@@ -95,6 +95,7 @@ public class ElectionController {
     public static void computeRanking(){
         switch(currentElection.getElectionType()){
             case "PRESIDENTIAL" -> {PresidentialElectionController.computeVotes();}
+            case "STATE" -> {}
         }
     }
 
