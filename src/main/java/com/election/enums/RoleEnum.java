@@ -6,5 +6,6 @@ public enum RoleEnum {
     GOVERNOR,
     STATE_DEPUTY,
     MAYOR,
-    CITY_COUNCILOR
+    CITY_COUNCILOR,
+    DEPARTMENT_CHIEF
 }
