@@ -57,4 +57,11 @@ public class StateElectionController {
         candidateRankingState = state;  
     }
 
+    public static List<Candidate> getWinners(){
+        List<Candidate> result = new ArrayList<>(); 
+        result.add(candidateRankingGovernor.get(0)); 
+        result.add(candidateRankingState.get(0)); 
+        return result; 
+    }
+
 }

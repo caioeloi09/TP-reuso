@@ -62,4 +62,11 @@ public class MunipalElectionController {
         candidateRankingCouncilor = councilor; 
     }
 
+    public static List<Candidate> getWinners(){
+        List<Candidate> result = new ArrayList<>(); 
+        result.add(candidateRankingMayoral.get(0)); 
+        result.add(candidateRankingCouncilor.get(0)); 
+        return result; 
+    }
+
 }

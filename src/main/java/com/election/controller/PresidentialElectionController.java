@@ -67,8 +67,13 @@ public class PresidentialElectionController extends ElectionController{
         }
         presidential.sort((c1, c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount()));
         candidateRankingPresidential = presidential;
-
-
-
     }
+
+    public static List<Candidate> getWinners(){
+        List<Candidate> result = new ArrayList<>(); 
+        result.add(candidateRankingPresidential.get(0)); 
+        result.add(candidateRankingFederal.get(0)); 
+        return result; 
+    }
+
 }
