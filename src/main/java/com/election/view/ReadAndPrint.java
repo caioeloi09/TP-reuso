@@ -5,6 +5,8 @@ import com.election.entity.Candidate;
 import com.election.entity.CertifiedProfessional;
 import com.election.entity.Vote;
 import com.election.entity.Voter;
+import com.election.enums.ElectionStatusEnum;
+
 
 import java.io.BufferedReader;
 import java.nio.file.Paths;
@@ -14,17 +16,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.nio.file.Files;
+import java.util.Objects;
 
 import static java.lang.System.exit;
 
 public class ReadAndPrint {
+
     private static final Map<String, Voter> VoterMap = new HashMap<>();
-    protected static final Map<Integer, Candidate> CandidateMap = new HashMap<>();
+    public static final Map<Integer, Candidate> CandidateMap = new HashMap<>();
     private static final Map<String, CertifiedProfessional> CertifiedMap = new HashMap<>();
     private static final BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
+    
     public static void print(String output) {
         System.out.println(output);
     }
+    
     public static String readString() {
         try {
             return scanner.readLine();
@@ -43,10 +49,24 @@ public class ReadAndPrint {
         }
     }
 
+    public static void preElectionMenu(){
+        print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
+        print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
+        print("Escolha uma opção de turno:\n");
+        print("(1) Primeiro Turno");
+        print("(2) Segundo turno");
+        int round = readInt();
+        if (round == 1) ElectionController.currentElection.setRound("FIRST_ROUND");
+        else if (round == 2) ElectionController.currentElection.setRound("SECOND_ROUND");
+        else{
+            print("Opção invalida\n");
+        }
+    }
 
     public static void loadVoters() {
         try {
-            Path filePath = Paths.get(ReadAndPrint.class.getClassLoader().getResource("voterLoad.txt").toURI());
+            Path filePath = Paths.get(Objects.requireNonNull(ReadAndPrint.class.getClassLoader()
+                    .getResource("voterLoad.txt")).toURI());
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
                 var voterData = line.split(",");
@@ -58,7 +78,7 @@ public class ReadAndPrint {
                                 .build());
             }
         } catch (Exception e) {
-            print("Erro na inicialização dos dados");
+            print("Erro na inicialização dos dados de eleitores");
             exit(1);
         }
     }
@@ -148,27 +168,45 @@ public class ReadAndPrint {
                 if (professional == null || !professional.getPassword().equals(password)){
                     print("\nUsuario ou senha Incorretos! Digite novamente.:\n");
                 }else {
-                    print("\nIniciar Sessão (1)\nFinalizar Sessão (2)\n");
-                    command = readInt();
-                    if (command == 1 && !ElectionController.currentElection.getStatus()){
-                        ElectionController.currentElection.setStatus(true);
-                        print("\nSessão iniciada com Sucesso!\n");
-                        state = false;
+                    if (ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.NOT_INITIALIZED.name())){
+                        print("\nIniciar Sessão (1)\nSair (2)\n");
+                        command = readInt();
+                        if (command == 1 ){
+                            ElectionController.currentElection.setStatus("RUNNING");
+                            print("\nSessão iniciada com Sucesso!\n");
+                            state = false;
+                        }
+                        else if(command == 2){
+                            state = false;
+                        }
                     }
-                    else if (command == 1 && ElectionController.currentElection.getStatus()){
-                        print("\nSessão já iniciada!\n");
-                    }
-                    else if (command == 2 && ElectionController.currentElection.getStatus()){
-                        ElectionController.currentElection.setStatus(false);
-                        print("\nSessão finalizada com Sucesso!\n");
-                        state = false;
-                    }
-                    else if (command == 2 && !ElectionController.currentElection.getStatus()){
-                        print("\nSessão já encerrada ou ainda não iniciada!\n");
+                    else if (ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.RUNNING.name())){
+                        print("\nFinalizar Sessão (1)\nSair (2)\n");
+                        command = readInt();
+                        if (command == 1 ){
+                            ElectionController.currentElection.setStatus("FINISHED");
+                            ElectionController.finishElection();
+                            print("\nSessão finalizada com Sucesso!\n");
+                            state = false;
+                        }
+                        else if(command == 2){
+                            state = false;
+                        }
+                    }else if(ElectionController.currentElection.getStatus().equals(ElectionStatusEnum.FINISHED.name())){
+                        print("\nVer Resultados (1)\nSair (2)\n"); 
+                        command = readInt(); 
+                        if(command == 1){
+                            // Criar estrutura de ver resultados no Read And Print e adjacentes
+                            state = false;
+                        }
+                        else if(command == 2){
+                            state = false; 
+                        }
                     }
                 }
             }
-
         }
     }
+
+
 }

@@ -1,16 +1,26 @@
 package com.election.controller;
 
 import com.election.entity.*;
+import com.election.helper.MajorityVoteHelper;
+import com.election.helper.VoteInterfaceHelper;
+import com.election.helper.WeightedVoteHelper;
+import com.election.view.ReadAndPrint;
+import com.election.view.ReadAndPrintPresidential;
 
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static com.election.view.ReadAndPrint.*;
+import static java.lang.System.exit;
 
 
 public class ElectionController {
-    protected static List<Vote> voteList = new ArrayList<>();
+    public static List<Candidate> candidatesList = new ArrayList<>();
+    public static List<Vote> voteList = new ArrayList<>();
     static boolean exit = false;
+    private static VoteInterfaceHelper countingStrategy;
     public static Election currentElection;
     public static void initializeElection(String electionPassword){
         try{
@@ -40,7 +50,7 @@ public class ElectionController {
                         createElection(electionPassword, "Universitaria");
                         exit = true;
                     }
-                    case 0 -> exit = true;
+                    case 0 -> exit(1);
                 }
             }
         }catch(Exception e){
@@ -64,4 +74,32 @@ public class ElectionController {
         }
     }
 
+    private static void setCountingStrategy(String electionType){
+        switch (electionType) {
+            case "PRESIDENTIAL", "STATE", "MUNICIPAL" -> {
+                countingStrategy = new MajorityVoteHelper();
+            }
+            case "UNIVERSITY" -> {
+                countingStrategy = new WeightedVoteHelper();
+            }
+        }
+    }
+
+    public static void finishElection(){
+        setCountingStrategy(currentElection.getElectionType());
+        countingStrategy.countVotes(voteList);
+        computeRanking();
+
+    }
+
+    public static void computeRanking(){
+        switch(currentElection.getElectionType()){
+            case "PRESIDENTIAL" -> {PresidentialElectionController.computeVotes();}
+            case "STATE" -> {}
+        }
+    }
+
+    public static int getValidVotes(){return currentElection.getValidVotes();}
+    public static int getNullVotes(){return currentElection.getNullVotes();}
+    public static int getWhiteVotes(){return currentElection.getWhiteVotes();}
 }

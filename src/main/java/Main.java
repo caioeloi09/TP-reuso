@@ -1,5 +1,6 @@
 import com.election.controller.ElectionController;
 import com.election.controller.PresidentialElectionController;
+import com.election.enums.ElectionRoundEnum;
 import com.election.view.ReadAndPrint;
 import com.election.view.ReadAndPrintPresidential;
 
@@ -12,12 +13,18 @@ public class Main {
         // Startar todos os eleitores e profissionais
         ReadAndPrint.loadVoters();
         ReadAndPrint.loadProfessionals();
+        ReadAndPrint.preElectionMenu();
 
 
         switch (ElectionController.currentElection.getElectionType()){
             case "PRESIDENTIAL":
-                ReadAndPrintPresidential.loadCandidates();
-                PresidentialElectionController.startMenu();
+                if (ElectionController.currentElection.getRound().equals(ElectionRoundEnum.FIRST_ROUND.name())){
+                    ReadAndPrintPresidential.loadCandidates();
+                    PresidentialElectionController.startMenu();
+                }else{
+                    ReadAndPrintPresidential.loadCandidatesSecondRound();
+                    PresidentialElectionController.startMenu();
+                }
 
             case "MUNICIPAL":
 

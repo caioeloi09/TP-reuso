@@ -1,13 +1,19 @@
 package com.election.controller;
 
+import com.election.entity.Candidate;
 import com.election.view.ReadAndPrint;
 import com.election.view.ReadAndPrintState;
 import com.election.entity.Vote;
 import com.election.entity.Voter;
 
-import static com.election.view.ReadAndPrint.print; 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.election.view.ReadAndPrint.print;
 
 public class StateElectionController {
+    public static List<Candidate> candidateRankingGovernor = new ArrayList<>();
+    public static List<Candidate> candidateRankingState = new ArrayList<>();
 
     public static void startMenu() {
         try {
