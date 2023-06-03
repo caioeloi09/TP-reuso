@@ -5,6 +5,7 @@ import com.election.view.ReadAndPrint;
 import com.election.view.ReadAndPrintState;
 import com.election.entity.Vote;
 import com.election.entity.Voter;
+import com.election.enums.RoleEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,7 @@ public class StateElectionController {
                 int command = ReadAndPrintState.showMenu();
                 switch (command) {
                     case 1 -> voterMenu();
-
-                    //case 2 -> tseMenu();
+                    case 2 -> ReadAndPrint.certifiedProfessionalMenu();
                     case 0 -> menuOn = false;
                     default -> print("Comando inválido\n");
                 }
@@ -42,6 +42,19 @@ public class StateElectionController {
         ElectionController.voteList.add(governorVote); 
         voter.alreadyVoted = true; 
         return true;
+    }
+
+    public static void computeVotes(){
+        List<Candidate> governmental = new ArrayList<>(ElectionController.candidatesList.stream()
+                .filter(candidate -> candidate.getRole().equals(RoleEnum.GOVERNOR.name()))
+                .toList()); 
+        governmental.sort((c1,c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount())); 
+        candidateRankingGovernor = governmental; 
+        List<Candidate> state = new ArrayList<>(ElectionController.candidatesList.stream()
+                .filter(candidate -> candidate.getRole().equals(RoleEnum.STATE_DEPUTY.name()))
+                .toList());
+        state.sort((c1,c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount()));
+        candidateRankingState = state;  
     }
 
 }

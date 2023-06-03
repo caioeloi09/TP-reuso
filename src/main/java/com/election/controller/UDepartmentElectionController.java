@@ -2,12 +2,19 @@ package com.election.controller;
 
 import com.election.view.ReadAndPrint; 
 import com.election.view.ReadAndPrintUDepartment;
+import com.election.entity.Candidate;
 import com.election.entity.Vote;
 import com.election.entity.Voter;
+import com.election.enums.RoleEnum;
 
-import static com.election.view.ReadAndPrint.print; 
+import static com.election.view.ReadAndPrint.print;
+
+import java.util.ArrayList; 
+import java.util.List; 
 
 public class UDepartmentElectionController {
+
+    private static List<Candidate> candidateRankingDepartmental = new ArrayList<>();
 
     public static void startMenu() {
         try {
@@ -16,8 +23,7 @@ public class UDepartmentElectionController {
                 int command = ReadAndPrintUDepartment.showMenu();
                 switch (command) {
                     case 1 -> voterMenu();
-
-                    //case 2 -> tseMenu();
+                    case 2 -> ReadAndPrint.certifiedProfessionalMenu();
                     case 0 -> menuOn = false;
                     default -> print("Comando inválido\n");
                 }
@@ -36,6 +42,14 @@ public class UDepartmentElectionController {
         ElectionController.voteList.add(chiefVote); 
         voter.alreadyVoted = true; 
         return true;
+    }
+
+    public static void computeVotes(){
+        List<Candidate> departmental = new ArrayList<>(ElectionController.candidatesList.stream()
+                .filter(candidate -> candidate.getRole().equals(RoleEnum.DEPARTMENT_CHIEF.name()))
+                .toList()); 
+        departmental.sort((c1,c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount()));
+        candidateRankingDepartmental = departmental; 
     }
 
 }
