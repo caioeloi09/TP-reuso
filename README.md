@@ -1,5 +1,5 @@
 # Projeto da disciplina Reutilização de software
-- Inicialmente projeto apenas com eleição presidencial em que houve a adição da possibilidade de segundo turno a assim como novos tipos de elições, sendo estendido para suportar municipais, estaduais e universitárias.
+- Inicialmente projeto apenas com eleição presidencial em que houve a adição da possibilidade de segundo turno assim como novos tipos de eleições, sendo estendido para suportar municipais, estaduais e universitárias.
 
 ## Padrões de projeto utilizados:
 -Factory Method
