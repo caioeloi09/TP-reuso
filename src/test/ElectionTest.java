@@ -18,8 +18,7 @@ public class ElectionTest {
         Map<Integer, Candidate> CandidateMap = new HashMap<>();
         List<Vote> voteList = new ArrayList<>();
         List<Candidate> candidateRanking = new ArrayList<>();
-        Path filePath = Paths.get(Objects.requireNonNull(ReadAndPrint.class.getClassLoader()
-                .getResource("presidentialCandidates.txt")).toURI());
+        Path filePath = Paths.get("src/main/resources/presidentialCandidates.txt");
         List<String> lines = Files.readAllLines(filePath);
         for (String line : lines) {
             var candidateData = line.split(",");

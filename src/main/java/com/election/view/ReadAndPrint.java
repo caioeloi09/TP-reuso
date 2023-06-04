@@ -65,8 +65,7 @@ public class ReadAndPrint {
 
     public static void loadVoters() {
         try {
-            Path filePath = Paths.get(Objects.requireNonNull(ReadAndPrint.class.getClassLoader()
-                    .getResource("voterLoad.txt")).toURI());
+            Path filePath = Paths.get("src/main/resources/voterLoad.txt");
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
                 var voterData = line.split(",");
@@ -85,8 +84,7 @@ public class ReadAndPrint {
 
     public static void loadProfessionals() {
         try{
-            Path filePath = Paths.get(ReadAndPrint.class.getClassLoader().getResource("certifiedProfessionals.txt")
-                    .toURI());
+            Path filePath = Paths.get("src/main/resources/certifiedProfessionals.txt");
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
                 var professionalData = line.split(",");

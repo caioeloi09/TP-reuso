@@ -20,8 +20,7 @@ public class ReadAndPrintPresidential extends ReadAndPrint{
 
     public static void loadCandidates() {
         try{
-            Path filePath = Paths.get(Objects.requireNonNull(ReadAndPrint.class.getClassLoader()
-                            .getResource("presidentialCandidates.txt")).toURI());
+            Path filePath = Paths.get("src/main/resources/presidentialCandidates.txt");
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
                 var candidateData = line.split(",");
@@ -108,9 +107,7 @@ public class ReadAndPrintPresidential extends ReadAndPrint{
             codigo1 = readInt();
             print("\nInsira o codigo do segundo candidato:\n\n");
             codigo2 = readInt();
-
-            Path filePath = Paths.get(Objects.requireNonNull(ReadAndPrint.class.getClassLoader()
-                    .getResource("presidentialCandidates.txt")).toURI());
+            Path filePath = Paths.get("src/main/resources/presidentialCandidates.txt");
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
                 var candidateData = line.split(",");
