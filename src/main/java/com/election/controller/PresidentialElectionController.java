@@ -71,8 +71,10 @@ public class PresidentialElectionController extends ElectionController{
 
     public static List<Candidate> getWinners(){
         List<Candidate> result = new ArrayList<>(); 
-        result.add(candidateRankingPresidential.get(0)); 
-        result.add(candidateRankingFederal.get(0)); 
+        result.add(candidateRankingPresidential.get(0));
+        if (currentElection.getRound().equals(ElectionRoundEnum.FIRST_ROUND.name())){
+            result.add(candidateRankingFederal.get(0));
+        }
         return result; 
     }
 
