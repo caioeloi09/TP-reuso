@@ -108,7 +108,7 @@ public class ElectionController {
             case "PRESIDENTIAL" -> {result = PresidentialElectionController.getWinners();}
             case "STATE" -> {StateElectionController.getWinners();}
             case "MUNICIPAL" -> {MunipalElectionController.getWinners();}
-            case "UNIVERSITY" -> {UDepartmentElectionController.getWinners();}
+            case "UNIVERSITY" -> {result = UDepartmentElectionController.getWinners();}
         }
         return result; 
     }

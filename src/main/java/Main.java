@@ -1,8 +1,10 @@
 import com.election.controller.ElectionController;
 import com.election.controller.PresidentialElectionController;
+import com.election.controller.UDepartmentElectionController;
 import com.election.enums.ElectionRoundEnum;
 import com.election.view.ReadAndPrint;
 import com.election.view.ReadAndPrintPresidential;
+import com.election.view.ReadAndPrintUDepartment;
 
 public class Main {
     public static void main(String [] args){
@@ -27,6 +29,11 @@ public class Main {
                 }
 
             case "MUNICIPAL":
+
+
+            case "UNIVERSITY":
+                ReadAndPrintUDepartment.loadCandidates();
+                UDepartmentElectionController.startMenu();
 
         }
 

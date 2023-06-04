@@ -6,7 +6,7 @@ public class Candidate {
     private final int electoralNumber;
     private int voteCount;  
     private final String name;
-    private RoleEnum role;
+    private final RoleEnum role;
 
     public Candidate(String name, int electoralNumber, String role) {
         this.name = name;

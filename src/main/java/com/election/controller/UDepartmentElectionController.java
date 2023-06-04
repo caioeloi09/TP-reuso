@@ -1,6 +1,8 @@
 package com.election.controller;
 
-import com.election.view.ReadAndPrint; 
+import com.election.entity.UVoter;
+import com.election.enums.VoterRoleEnum;
+import com.election.view.ReadAndPrint;
 import com.election.view.ReadAndPrintUDepartment;
 import com.election.entity.Candidate;
 import com.election.entity.Vote;
@@ -14,6 +16,7 @@ import java.util.List;
 
 public class UDepartmentElectionController {
 
+    public static final int WEIGHT = 3;
     private static List<Candidate> candidateRankingDepartmental = new ArrayList<>();
 
     public static void startMenu() {
@@ -37,8 +40,11 @@ public class UDepartmentElectionController {
         ReadAndPrintUDepartment.showVoterMenu();
     }
 
-    public static boolean voteChief(Voter voter){
+    public static boolean voteChief(UVoter voter){
         Vote chiefVote = ReadAndPrint.readVote();
+        if (voter.getRole().equals(VoterRoleEnum.PROFESSOR.name())){
+            chiefVote.setWeight(WEIGHT);
+        }
         ElectionController.voteList.add(chiefVote); 
         voter.alreadyVoted = true; 
         return true;

@@ -1,5 +1,7 @@
 package com.election.entity;
 
+import com.election.enums.VoterRoleEnum;
+
 public class Voter {
     protected final String electoralCard;
 
@@ -57,4 +59,13 @@ public class Voter {
         this.state = state;
     }
 
+    public String getElectoralCard(){
+        return this.electoralCard;
+    }
+    public String getName() {
+        return name;
+    }
+    public String getState() {
+        return state;
+    }
 }
