@@ -52,4 +52,10 @@ public class UDepartmentElectionController {
         candidateRankingDepartmental = departmental; 
     }
 
+    public static List<Candidate> getWinners(){
+        List<Candidate> result = new ArrayList<>(); 
+        result.add(candidateRankingDepartmental.get(0)); 
+        return result; 
+    }
+
 }

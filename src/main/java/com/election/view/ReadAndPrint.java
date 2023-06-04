@@ -184,7 +184,6 @@ public class ReadAndPrint {
                         print("\nFinalizar Sessão (1)\nSair (2)\n");
                         command = readInt();
                         if (command == 1 ){
-                            ElectionController.currentElection.setStatus("FINISHED");
                             ElectionController.finishElection();
                             print("\nSessão finalizada com Sucesso!\n");
                             state = false;
@@ -196,7 +195,7 @@ public class ReadAndPrint {
                         print("\nVer Resultados (1)\nSair (2)\n"); 
                         command = readInt(); 
                         if(command == 1){
-                            // Criar estrutura de ver resultados no Read And Print e adjacentes
+                            showResults();
                             state = false;
                         }
                         else if(command == 2){
@@ -205,6 +204,20 @@ public class ReadAndPrint {
                     }
                 }
             }
+        }
+    }
+
+    public static void showResults(){
+        print("Resultado da Eleicao:");
+        print("Votos validos: " + ElectionController.getValidVotes());
+        print("Votos nulos: " + ElectionController.getNullVotes());
+        print("Votos brancos: " +  ElectionController.getWhiteVotes()); 
+        print("\n"); 
+
+        List<Candidate> winners = ElectionController.getResults(); 
+        for(Candidate candidate : winners){
+            print("O vencedor para o cargo de " + candidate.getRole() + " foi"); 
+            print(candidate.toString()); 
         }
     }
 

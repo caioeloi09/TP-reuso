@@ -49,14 +49,4 @@ public class ReadAndPrintMunicipal extends ReadAndPrint{
 
     }
 
-    public static void showResults(){
-        print("Resultado da Eleicao:");
-        print("Votos validos: " + ElectionController.getValidVotes());
-        print("Votos nulos: " + ElectionController.getNullVotes());
-        print("Votos brancos: " +  ElectionController.getWhiteVotes()); 
-        print("\n"); 
-
-
-    }
-
 }

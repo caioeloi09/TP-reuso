@@ -86,17 +86,31 @@ public class ElectionController {
     }
 
     public static void finishElection(){
+        currentElection.setStatus("FINISHED");
         setCountingStrategy(currentElection.getElectionType());
         countingStrategy.countVotes(voteList);
         computeRanking();
 
     }
 
-    public static void computeRanking(){
+    private static void computeRanking(){
         switch(currentElection.getElectionType()){
             case "PRESIDENTIAL" -> {PresidentialElectionController.computeVotes();}
-            case "STATE" -> {}
+            case "STATE" -> {StateElectionController.computeVotes();}
+            case "MUNICIPAL" -> {MunipalElectionController.computeVotes();}
+            case "UNIVERSITY" -> {UDepartmentElectionController.computeVotes();}
         }
+    }
+
+    public static List<Candidate> getResults(){
+        List<Candidate> result = new ArrayList<>(); 
+        switch(currentElection.getElectionType()){
+            case "PRESIDENTIAL" -> {result = PresidentialElectionController.getWinners();}
+            case "STATE" -> {StateElectionController.getWinners();}
+            case "MUNICIPAL" -> {MunipalElectionController.getWinners();}
+            case "UNIVERSITY" -> {UDepartmentElectionController.getWinners();}
+        }
+        return result; 
     }
 
     public static int getValidVotes(){return currentElection.getValidVotes();}
