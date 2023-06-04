@@ -32,8 +32,7 @@ public class ReadAndPrintPresidential extends ReadAndPrint{
                                 .build());
             }
 
-            filePath = Paths.get(Objects.requireNonNull(ReadAndPrint.class.getClassLoader()
-                    .getResource("federalCandidates.txt")).toURI());
+            filePath = Paths.get("src/main/resources/federalCandidates.txt");
             lines = Files.readAllLines(filePath);
             for (String line : lines) {
                 var candidateData = line.split(",");
