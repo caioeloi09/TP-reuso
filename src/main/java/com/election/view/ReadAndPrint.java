@@ -206,11 +206,11 @@ public class ReadAndPrint {
     }
 
     public static void showResults(){
-        print("Resultado da Eleicao:");
-        print("Votos validos: " + ElectionController.getValidVotes());
-        print("Votos nulos: " + ElectionController.getNullVotes());
-        print("Votos brancos: " +  ElectionController.getWhiteVotes()); 
-        print("\n"); 
+        // print("Resultado da Eleicao:");
+        // print("Votos validos: " + ElectionController.getValidVotes());
+        // print("Votos nulos: " + ElectionController.getNullVotes());
+        // print("Votos brancos: " +  ElectionController.getWhiteVotes()); 
+        // print("\n"); 
 
         List<Candidate> winners = ElectionController.getResults(); 
         for(Candidate candidate : winners){

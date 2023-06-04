@@ -90,7 +90,6 @@ public class ElectionController {
         setCountingStrategy(currentElection.getElectionType());
         countingStrategy.countVotes(voteList);
         computeRanking();
-
     }
 
     private static void computeRanking(){
@@ -106,8 +105,8 @@ public class ElectionController {
         List<Candidate> result = new ArrayList<>(); 
         switch(currentElection.getElectionType()){
             case "PRESIDENTIAL" -> {result = PresidentialElectionController.getWinners();}
-            case "STATE" -> {StateElectionController.getWinners();}
-            case "MUNICIPAL" -> {MunipalElectionController.getWinners();}
+            case "STATE" -> {result = StateElectionController.getWinners();}
+            case "MUNICIPAL" -> {result = MunipalElectionController.getWinners();}
             case "UNIVERSITY" -> {result = UDepartmentElectionController.getWinners();}
         }
         return result; 

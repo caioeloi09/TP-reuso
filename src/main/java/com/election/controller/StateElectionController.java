@@ -30,6 +30,7 @@ public class StateElectionController {
             }
         } catch (Exception e) {
             print("Erro inesperado\n");
+            e.printStackTrace(); 
         }
     }
     
@@ -50,17 +51,17 @@ public class StateElectionController {
                 .toList()); 
         governmental.sort((c1,c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount())); 
         candidateRankingGovernor = governmental; 
-        List<Candidate> state = new ArrayList<>(ElectionController.candidatesList.stream()
-                .filter(candidate -> candidate.getRole().equals(RoleEnum.STATE_DEPUTY.name()))
-                .toList());
-        state.sort((c1,c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount()));
-        candidateRankingState = state;  
+        // List<Candidate> state = new ArrayList<>(ElectionController.candidatesList.stream()
+        //         .filter(candidate -> candidate.getRole().equals(RoleEnum.STATE_DEPUTY.name()))
+        //         .toList());
+        // state.sort((c1,c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount()));
+        // candidateRankingState = state;  
     }
 
     public static List<Candidate> getWinners(){
         List<Candidate> result = new ArrayList<>(); 
         result.add(candidateRankingGovernor.get(0)); 
-        result.add(candidateRankingState.get(0)); 
+        //result.add(candidateRankingState.get(0)); 
         return result; 
     }
 

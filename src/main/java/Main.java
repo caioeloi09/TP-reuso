@@ -1,10 +1,6 @@
-import com.election.controller.ElectionController;
-import com.election.controller.PresidentialElectionController;
-import com.election.controller.UDepartmentElectionController;
+import com.election.controller.*
 import com.election.enums.ElectionRoundEnum;
-import com.election.view.ReadAndPrint;
-import com.election.view.ReadAndPrintPresidential;
-import com.election.view.ReadAndPrintUDepartment;
+import com.election.view.*;
 
 public class Main {
     public static void main(String [] args){
@@ -19,7 +15,7 @@ public class Main {
 
 
         switch (ElectionController.currentElection.getElectionType()){
-            case "PRESIDENTIAL":
+            case "PRESIDENTIAL" -> {
                 if (ElectionController.currentElection.getRound().equals(ElectionRoundEnum.FIRST_ROUND.name())){
                     ReadAndPrintPresidential.loadCandidates();
                     PresidentialElectionController.startMenu();
@@ -27,17 +23,38 @@ public class Main {
                     ReadAndPrintPresidential.loadCandidatesSecondRound();
                     PresidentialElectionController.startMenu();
                 }
+            }
 
-            case "MUNICIPAL":
+            case "MUNICIPAL" -> {
+                if (ElectionController.currentElection.getRound().equals(ElectionRoundEnum.FIRST_ROUND.name())){
+                    ReadAndPrintMunicipal.loadCandidates();
+                    MunipalElectionController.startMenu();
+                }else{
+                    ReadAndPrintMunicipal.loadCandidatesSecondRound();
+                    MunipalElectionController.startMenu();
+                }
+            }
+
+            case "STATE" -> {
+                if (ElectionController.currentElection.getRound().equals(ElectionRoundEnum.FIRST_ROUND.name())){
+                    ReadAndPrintState.loadCandidates();
+                    StateElectionController.startMenu();
+                }else{
+                    ReadAndPrintState.loadCandidatesSecondRound();
+                    StateElectionController.startMenu();
+                }
+            }
 
 
-            case "UNIVERSITY":
-                ReadAndPrintUDepartment.loadCandidates();
-                UDepartmentElectionController.startMenu();
-
+            case "UNIVERSITY" -> {
+                if (ElectionController.currentElection.getRound().equals(ElectionRoundEnum.FIRST_ROUND.name())){
+                    ReadAndPrintUDepartment.loadCandidates();
+                    UDepartmentElectionController.startMenu();
+                }else{
+                    ReadAndPrintUDepartment.loadCandidatesSecondRound();
+                    UDepartmentElectionController.startMenu();
+                }
+            }
         }
-
-
     }
-
 }
