@@ -34,6 +34,7 @@ public class MunipalElectionController {
             }
         } catch (Exception e) {
             print("Erro inesperado\n");
+            e.printStackTrace(); 
         }
     }
 

@@ -4,6 +4,15 @@ import com.election.controller.ElectionController;
 import com.election.controller.UDepartmentElectionController;
 import com.election.entity.Voter;
 import com.election.enums.ElectionStatusEnum;
+import com.election.entity.Candidate;
+import com.election.enums.RoleEnum; 
+
+import java.util.List; 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import static java.lang.System.exit;
 
 public class ReadAndPrintUDepartment extends ReadAndPrint{
 
@@ -41,5 +50,56 @@ public class ReadAndPrintUDepartment extends ReadAndPrint{
            print("Voto para chefe de departamento registrado com sucesso");
          print("\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n");
 
+    }
+
+    public static void loadCandidates() {
+        try{
+            Path filePath = Paths.get("src/main/resources/universityCandidates.txt");
+            List<String> lines = Files.readAllLines(filePath);
+            for (String line : lines) {
+                var candidateData = line.split(",");
+                ReadAndPrint.CandidateMap.put(Integer.valueOf(candidateData[0]),
+                        new Candidate.Builder()
+                                .electoralNumber(Integer.parseInt(candidateData[0]))
+                                .name(candidateData[1])
+                                .role(RoleEnum.DEPARTMENT_CHIEF.name())
+                                .build());
+            }
+        } catch (Exception e){
+            print("Erro na inicialização dos dados");
+            exit(1);
+        }
+    }
+
+    public static void loadCandidatesSecondRound() {
+        try{
+            int codigo1, codigo2;
+            print("Vamos começar!\n");
+            print("\nInsira o codigo do primeiro candidato:\n\n");
+            codigo1 = readInt();
+            print("\nInsira o codigo do segundo candidato:\n\n");
+            codigo2 = readInt();
+            Path filePath = Paths.get("src/main/resources/universityCandidates.txt");
+            List<String> lines = Files.readAllLines(filePath);
+            for (String line : lines) {
+                var candidateData = line.split(",");
+                if (Integer.parseInt(candidateData[0]) == codigo1 || Integer.parseInt(candidateData[0]) == codigo2){
+                    ReadAndPrint.CandidateMap.put(Integer.valueOf(candidateData[0]),
+                            new Candidate.Builder()
+                                    .electoralNumber(Integer.parseInt(candidateData[0]))
+                                    .name(candidateData[1])
+                                    .role(RoleEnum.DEPARTMENT_CHIEF.name())
+                                    .build());
+                }
+            }
+            if (CandidateMap.size() != 2){
+                print("Candidatos Inválidos! Digite novamente");
+                loadCandidatesSecondRound();
+            }
+
+        } catch (Exception e){
+            print("Erro na inicialização dos dados");
+            exit(1);
+        }
     }
 }
