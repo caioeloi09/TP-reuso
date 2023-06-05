@@ -1,3 +1,0 @@
-- criar tela de mostrar resultados
-- colocar todas as implementacoes em eleicao estadual, municipal
-- colocar implementacoes em eleicao univesitaria + voto ponderado
