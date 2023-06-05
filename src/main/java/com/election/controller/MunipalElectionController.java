@@ -56,17 +56,17 @@ public class MunipalElectionController {
         mayoral.sort((c1,c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount())); 
         candidateRankingMayoral = mayoral; 
 
-        List<Candidate> councilor = new ArrayList<>(ElectionController.candidatesList.stream()
-                .filter(candidate -> candidate.getRole().equals(RoleEnum.CITY_COUNCILOR.name()))
-                .toList()); 
-        councilor.sort((c1,c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount())); 
-        candidateRankingCouncilor = councilor; 
+        // List<Candidate> councilor = new ArrayList<>(ElectionController.candidatesList.stream()
+        //         .filter(candidate -> candidate.getRole().equals(RoleEnum.CITY_COUNCILOR.name()))
+        //         .toList()); 
+        // councilor.sort((c1,c2) -> Integer.compare(c2.getVoteCount(), c1.getVoteCount())); 
+        // candidateRankingCouncilor = councilor; 
     }
 
     public static List<Candidate> getWinners(){
         List<Candidate> result = new ArrayList<>(); 
         result.add(candidateRankingMayoral.get(0)); 
-        result.add(candidateRankingCouncilor.get(0)); 
+        //result.add(candidateRankingCouncilor.get(0)); 
         return result; 
     }
 
